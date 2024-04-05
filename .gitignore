@@ -74,6 +74,12 @@ DiceCalculator/[Aa]ssets/[Ss]treamingAssets/aa/*
 
 DiceCalculator/Assets/Textures/RocketEngine/cache_fluid_4b85f272/config*
 DiceCalculator/Assets/Textures/RocketEngine/cache_fluid_4b85f272/data/*
+# gitignore for c++
+*.o
+*.exe
+
+DiceCalculator/Assets/Textures/RocketEngine/cache_fluid_4b85f272/config*
+DiceCalculator/Assets/Textures/RocketEngine/cache_fluid_4b85f272/data/*
 
 Library/
 
