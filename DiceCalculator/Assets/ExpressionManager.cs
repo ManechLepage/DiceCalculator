@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ExpressionParser : MonoBehaviour
+public class ExpressionManager : MonoBehaviour
 {
     public List<ExpressionManager> expressions = new List<ExpressionManager>();
-
-    string Parse()
+    public string value;
+    
+    string GetString()
     {
-        return "";
+        return value;
     }
 }
