@@ -70,3 +70,12 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+
+/Assets/Textures/RocketEngine/cache_fluid_4b85f272/config*
+/Assets/Textures/RocketEngine/cache_fluid_4b85f272/data/*
+
+Library/
+
+Logs/
+
+UserSettings/
