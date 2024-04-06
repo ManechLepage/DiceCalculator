@@ -213,6 +213,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MinBracket
       objectReference: {fileID: 0}
+    - target: {fileID: 5413958893611130761, guid: 73b57db5f8b564242b985dae9a10fb19, type: 3}
+      propertyPath: operatorPrefab
+      value: 
+      objectReference: {fileID: 5064834886569410424, guid: 39280b111add07445a281e51a0d0e011, type: 3}
     - target: {fileID: 6929449321672509493, guid: 73b57db5f8b564242b985dae9a10fb19, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

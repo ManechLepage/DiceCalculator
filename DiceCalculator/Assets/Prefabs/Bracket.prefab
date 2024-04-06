@@ -318,7 +318,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   expressions: []
-  operatorPrefab: {fileID: 0}
+  operatorPrefab: {fileID: 5064834886569410424, guid: 39280b111add07445a281e51a0d0e011, type: 3}
 --- !u!114 &-347405527243396524
 MonoBehaviour:
   m_ObjectHideFlags: 0
