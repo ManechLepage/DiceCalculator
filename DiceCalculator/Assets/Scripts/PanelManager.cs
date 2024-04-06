@@ -7,6 +7,8 @@ public class PanelManager : MonoBehaviour
 {
     public List<GameObject> expressions = new List<GameObject>(); 
     public GameObject operatorPrefab; 
+    public int maxLength = -1;
+    public bool hasOperators = true;
 
     public void Update()
     {
@@ -15,8 +17,12 @@ public class PanelManager : MonoBehaviour
 
     public void UpdatePanel()
     {
-        AddOperators();
+        if (hasOperators) 
+        {
+            AddOperators();
+        }
         WidthManager();
+        HandleMaxLength();
     }
 
     public void AddOperators()
@@ -60,6 +66,27 @@ public class PanelManager : MonoBehaviour
         if (transform.parent.GetComponent<PanelManager>() != null)
         {
             transform.parent.GetComponent<PanelManager>().UpdatePanel();
+        }
+    }
+
+    public void HandleMaxLength()
+    {
+        int currentLength = 0;
+        if (maxLength != -1)
+        {
+            foreach (Transform child in transform)
+            {
+                if (currentLength > maxLength)
+                {
+                    Destroy(child.gameObject);
+                }
+                if (child.gameObject.GetComponent<ExpressionManager>() != null)
+                {
+                    
+                    currentLength++;
+                }
+                Debug.Log(currentLength);
+            }
         }
     }
 }
