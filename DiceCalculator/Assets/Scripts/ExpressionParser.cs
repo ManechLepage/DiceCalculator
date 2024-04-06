@@ -220,35 +220,48 @@ public class ExpressionParser : MonoBehaviour
     {
         string fullPath = GetPath("results.txt");
         
-        string readText = File.ReadAllText(fullPath);
-        List<Vector2> results = new List<Vector2>();
-
-        string[] lines = readText.Split('\n');
-
-        int i = 0;
-        foreach (string line in lines)
+        while (true)
         {
-            if (i == 0)
-                id = int.Parse(line) + 1;
-            
-            else
-            {
-                string[] values = line.Split(' ');
-                if (values.Length == 2)
-                {
-                    float x = TextToFloat(values[0]);
-                    float y = TextToFloat(values[1]);
+            string readText = File.ReadAllText(fullPath);
 
-                    Debug.Log($"Values : {x}, {y}");
+            if (readText != "")
+            {
+                List<Vector2> results = new List<Vector2>();
+
+                string[] lines = readText.Split('\n');
+                int detected_id;
+
+                int i = 0;
+                foreach (string line in lines)
+                {
+                    if (i == 0)
+                        detected_id = int.Parse(line) + 1;
+                    
+                    else
+                    {
+                        string[] values = line.Split(' ');
+                        if (values.Length == 2)
+                        {
+                            float x = TextToFloat(values[0]);
+                            float y = TextToFloat(values[1]);
+
+                            Debug.Log($"Values : {x}, {y}");
+                        }
+                    }
+                    i += 1;
+                }
+
+                if (detected_id != id)
+                {
+                    id = detected_id;
+                    
+                    Debug.Log("Results");
+                    Debug.Log(results);
+                    Debug.Log(readText);
+
+                    return results;
                 }
             }
-            i += 1;
         }
-
-        Debug.Log("Results");
-        Debug.Log(results);
-        Debug.Log(readText);
-
-        return results;
     }
 }
