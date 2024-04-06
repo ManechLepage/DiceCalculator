@@ -8,9 +8,10 @@ using System.Globalization;
 public class ExpressionParser : MonoBehaviour
 {
     public List<ExpressionManager> expressions = new List<ExpressionManager>();
+    public FormatUpdater formatUpdater;
     public InfoManager graphPanel;
     public GameObject baseBracket;
-    private int id = 0;
+    public int id = 0;
 
     void TestInitialize()
     {
@@ -71,8 +72,7 @@ public class ExpressionParser : MonoBehaviour
         //TestInitialize();
         //string text = Parse();
         //Debug.Log(text);
-
-        LoadResults();
+        //LoadResults();
     }
 
     string ValueToString(ExpressionManager expr)
@@ -101,14 +101,13 @@ public class ExpressionParser : MonoBehaviour
         }
     }
 
-    public void Parse()
+    public string Parse()
     {
         List<ExpressionManager> exprs = new List<ExpressionManager>();
         exprs.Add(baseBracket.GetComponent<ExpressionManager>());
         
         string text = ParseExpressions(exprs);
-        Debug.Log(text);
-        //return text;
+        return text;
     }
 
     string ParseExpressions(List<ExpressionManager> exprs)
@@ -230,6 +229,13 @@ public class ExpressionParser : MonoBehaviour
         Debug.Log($"Text: {text}, Numbers: {numbers}, Value: {value}");
 
         return value;
+    }
+
+    public void SendExpression()
+    {
+        formatUpdater.UpdateFormat();
+        string text = Parse();
+        SendToDiceRoller(text);
     }
 
     public void LoadResults()
