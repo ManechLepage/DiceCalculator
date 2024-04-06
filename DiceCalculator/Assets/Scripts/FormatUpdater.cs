@@ -42,15 +42,33 @@ public class FormatUpdater : MonoBehaviour
 
                         ExpressionManager e1;
                         ExpressionManager e2;
-                        if (expr.type == ExpressionType.Operator)
+                        int j = expression.expressions.Count - 1;
+                        if (expr.type == ExpressionType.Operator || expr.type == ExpressionType.MaxBracket || expr.type == ExpressionType.MinBracket)
                         {
-                            e1 = children[i - 1].GetComponent<ExpressionManager>();
+                            if (j >= 0 && (expression.expressions[j].type == ExpressionType.Operator || expression.expressions[j].type == ExpressionType.MaxBracket
+                                || expression.expressions[j].type == ExpressionType.MinBracket))
+                            {
+                                e1 = expression.expressions[j];
+                                expression.expressions.RemoveAt(j);
+                            }
+                            else
+                                e1 = children[i - 1].GetComponent<ExpressionManager>();
                             e2 = children[i + 1].GetComponent<ExpressionManager>();
                         }
                         else
                         {
-                            e1 = children[i + 1].GetComponent<ExpressionManager>();
-                            e2 = children[i + 2].GetComponent<ExpressionManager>();
+                            List<ExpressionManager> es = new List<ExpressionManager>();
+                            foreach (Transform c in child.transform)
+                            {
+                                GameObject cObject = c.gameObject;
+                                ExpressionManager cManager = cObject.GetComponent<ExpressionManager>();
+                                
+                                if (cManager != null && !(cManager.value == "" && cManager.type == ExpressionType.Value))
+                                    es.Add(cManager);
+                            }
+                            
+                            e1 = es[0];
+                            e2 = es[1];
                         }
 
                         expr.expressions.Add(e1);
