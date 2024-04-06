@@ -6,6 +6,49 @@ public class ExpressionParser : MonoBehaviour
 {
     public List<ExpressionManager> expressions = new List<ExpressionManager>();
 
+    void TestInitialize()
+    {
+        // 1d8 * (2d6 + 3)
+        ExpressionManager expr1 = new ExpressionManager();
+        expr1.value = "1d8";
+        expr1.type = ExpressionType.Value;
+
+        ExpressionManager expr2 = new ExpressionManager();
+        expr2.value = "2d6";
+        expr2.type = ExpressionType.Value;
+
+        ExpressionManager expr3 = new ExpressionManager();
+        expr3.value = "3";
+        expr3.type = ExpressionType.Value;
+
+        ExpressionManager expr4 = new ExpressionManager();
+        expr4.value = "+";
+        expr4.type = ExpressionType.Operator;
+        expr4.expressions.Add(expr2);
+        expr4.expressions.Add(expr3);
+
+        ExpressionManager expr5 = new ExpressionManager();
+        expr5.value = "";
+        expr5.type = ExpressionType.Parentesis;
+        expr5.expressions.Add(expr4);
+
+        ExpressionManager expr6 = new ExpressionManager();
+        expr6.value = "*";
+        expr6.type = ExpressionType.Operator;
+        expr6.expressions.Add(expr1);
+        expr6.expressions.Add(expr5);
+
+        expressions.Add(expr6);
+    }
+
+    void Start()
+    {
+        Debug.Log("Expression Parser");
+        TestInitialize();
+        string text = Parse(expressions);
+        Debug.Log(text);
+    }
+
     string ValueToString(ExpressionManager expr)
     {
         if (!expr.value.Contains("d"))
@@ -72,29 +115,25 @@ public class ExpressionParser : MonoBehaviour
         foreach (ExpressionManager expr in exprs)
         {
             if (expr.type == ExpressionType.Value)
-            {
                 text += ValueToString(expr);
-            }
+            
             else if (expr.type == ExpressionType.Operator)
             {
-                text += "[" + expr.value + " ";
+                text += "[" + expr.value;
                 foreach (ExpressionManager subExpr in expr.expressions)
                 {
                     List<ExpressionManager> subExprs = new List<ExpressionManager>();
                     subExprs.Add(subExpr);
                     
-                    text += Parse(subExprs) + " ";
+                    text += " " + Parse(subExprs);
                 }
                 text += "]";
             }
+
             else if (expr.type == ExpressionType.Parentesis)
-            {
-                text += "[";
                 text += Parse(expr.expressions);
-                text += "]";
-            }
         }
 
-        return "";
+        return text;
     }
 }
