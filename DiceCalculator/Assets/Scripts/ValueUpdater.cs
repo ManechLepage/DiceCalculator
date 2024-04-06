@@ -15,6 +15,20 @@ public class ValueUpdater : MonoBehaviour
 
     public void UpdateValue()
     {
-        expression.value = dropdown.options[dropdown.value].text;
+        switch (dropdown.value)
+        {
+            case 0:
+                expression.value = "+";
+                break;
+            case 1:
+                expression.value = "-";
+                break;
+            case 2:
+                expression.value = "*";
+                break;
+            case 3:
+                expression.value = "/";
+                break;
+        }
     }
 }

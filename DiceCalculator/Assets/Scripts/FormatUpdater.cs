@@ -43,7 +43,8 @@ public class FormatUpdater : MonoBehaviour
                         ExpressionManager e1;
                         ExpressionManager e2;
                         int j = expression.expressions.Count - 1;
-                        if (expr.type == ExpressionType.Operator || expr.type == ExpressionType.MaxBracket || expr.type == ExpressionType.MinBracket)
+                        
+                        if (expr.type == ExpressionType.Operator)
                         {
                             if (j >= 0 && (expression.expressions[j].type == ExpressionType.Operator || expression.expressions[j].type == ExpressionType.MaxBracket
                                 || expression.expressions[j].type == ExpressionType.MinBracket))
@@ -66,7 +67,7 @@ public class FormatUpdater : MonoBehaviour
                                 if (cManager != null && !(cManager.value == "" && cManager.type == ExpressionType.Value))
                                     es.Add(cManager);
                             }
-                            
+
                             e1 = es[0];
                             e2 = es[1];
                         }
