@@ -94,6 +94,34 @@ PrefabInstance:
 
 '
       objectReference: {fileID: 0}
+    - target: {fileID: 6424386835476325061, guid: 389013b62cc3d0d488460291ac6e8e7f, type: 3}
+      propertyPath: m_fontSize
+      value: 35
+      objectReference: {fileID: 0}
+    - target: {fileID: 6424386835476325061, guid: 389013b62cc3d0d488460291ac6e8e7f, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 1776ac7f9a93d694ca6ad8e3a4f59db8, type: 2}
+    - target: {fileID: 6424386835476325061, guid: 389013b62cc3d0d488460291ac6e8e7f, type: 3}
+      propertyPath: m_fontStyle
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6424386835476325061, guid: 389013b62cc3d0d488460291ac6e8e7f, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 35
+      objectReference: {fileID: 0}
+    - target: {fileID: 6424386835476325061, guid: 389013b62cc3d0d488460291ac6e8e7f, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -7757558515409314641, guid: 1776ac7f9a93d694ca6ad8e3a4f59db8, type: 2}
+    - target: {fileID: 6424386835476325061, guid: 389013b62cc3d0d488460291ac6e8e7f, type: 3}
+      propertyPath: m_VerticalAlignment
+      value: 4096
+      objectReference: {fileID: 0}
+    - target: {fileID: 6424386835476325061, guid: 389013b62cc3d0d488460291ac6e8e7f, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8811582483120172991, guid: 389013b62cc3d0d488460291ac6e8e7f, type: 3}
       propertyPath: m_Name
       value: TextBox
@@ -216,6 +244,14 @@ PrefabInstance:
     - target: {fileID: 2471704815614336877, guid: 73b57db5f8b564242b985dae9a10fb19, type: 3}
       propertyPath: m_Name
       value: MinBracket
+      objectReference: {fileID: 0}
+    - target: {fileID: 2483103460861209424, guid: 73b57db5f8b564242b985dae9a10fb19, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -3.4800034
+      objectReference: {fileID: 0}
+    - target: {fileID: 2483103460861209424, guid: 73b57db5f8b564242b985dae9a10fb19, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -2.9900017
       objectReference: {fileID: 0}
     - target: {fileID: 5413958893611130761, guid: 73b57db5f8b564242b985dae9a10fb19, type: 3}
       propertyPath: maxLength

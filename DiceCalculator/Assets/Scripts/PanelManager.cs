@@ -85,7 +85,6 @@ public class PanelManager : MonoBehaviour
                     
                     currentLength++;
                 }
-                Debug.Log(currentLength);
             }
         }
     }
