@@ -244,8 +244,6 @@ public class ExpressionParser : MonoBehaviour
                         {
                             float x = TextToFloat(values[0]);
                             float y = TextToFloat(values[1]);
-
-                            Debug.Log($"Values : {x}, {y}");
                         }
                     }
                     i += 1;

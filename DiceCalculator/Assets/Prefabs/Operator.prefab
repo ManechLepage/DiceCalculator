@@ -492,6 +492,7 @@ GameObject:
   - component: {fileID: 6317394905275474408}
   - component: {fileID: 5100382747842318023}
   - component: {fileID: 1614819625489321800}
+  - component: {fileID: -1109746183129125332}
   m_Layer: 5
   m_Name: Operator
   m_TagString: Untagged
@@ -618,7 +619,19 @@ MonoBehaviour:
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: -1109746183129125332}
+        m_TargetAssemblyTypeName: ValueUpdater, Assembly-CSharp
+        m_MethodName: UpdateValue
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_AlphaFadeSpeed: 0.15
 --- !u!114 &1614819625489321800
 MonoBehaviour:
@@ -635,6 +648,22 @@ MonoBehaviour:
   expressions: []
   value: 
   type: 1
+  hasOperators: 1
+  maxLength: -1
+--- !u!114 &-1109746183129125332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5064834886569410424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51f8b471db1fb8a46836d725066ba21c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  expression: {fileID: 1614819625489321800}
+  dropdown: {fileID: 5100382747842318023}
 --- !u!1 &5731678979570634481
 GameObject:
   m_ObjectHideFlags: 0
