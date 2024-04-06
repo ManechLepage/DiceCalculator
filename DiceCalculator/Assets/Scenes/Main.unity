@@ -1347,7 +1347,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 729980356}
         m_TargetAssemblyTypeName: SearchingManager, Assembly-CSharp
-        m_MethodName: AddBrackets
+        m_MethodName: AddMaxBrackets
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1476,6 +1476,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textBoxPrefab: {fileID: 8811582483120172991, guid: 389013b62cc3d0d488460291ac6e8e7f, type: 3}
   bracketBoxPrefab: {fileID: 2471704815614336877, guid: 73b57db5f8b564242b985dae9a10fb19, type: 3}
+  bracketBoxMaxPrefab: {fileID: 0}
+  bracketBoxMinPrefab: {fileID: 0}
 --- !u!114 &767946852
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1715,7 +1717,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 729980356}
         m_TargetAssemblyTypeName: SearchingManager, Assembly-CSharp
-        m_MethodName: AddBrackets
+        m_MethodName: AddMinBrackets
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
