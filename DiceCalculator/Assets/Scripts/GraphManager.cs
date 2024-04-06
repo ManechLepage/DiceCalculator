@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class GraphManager : MonoBehaviour
 {
@@ -28,6 +30,8 @@ public class GraphManager : MonoBehaviour
             GameObject bar = Instantiate(barPrefab, transform);
             bar.GetComponent<RectTransform>().sizeDelta = new Vector3(50, plotValues[i].y * barHeightModifier, 1);
             bar.GetComponent<Image>().color = LerpColor(barColor1, barColor2, plotValues[i].y);
+
+            bar.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text =(MathF.Round(plotValues[i].y * 100)).ToString() + "%";
         }
     }
 
