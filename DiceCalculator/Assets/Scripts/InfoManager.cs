@@ -81,7 +81,7 @@ public class InfoManager : MonoBehaviour
         }
         else if (chartType == 1)
         {
-            slopeGraph.GetComponent<SlopeGraphManager>().GenerateSlopeGraph(plotValues);
+            slopeGraph.GetComponent<SlopeGraphManager>().GenerateSlopeGraph(plotValues, false);
         }
     }
 

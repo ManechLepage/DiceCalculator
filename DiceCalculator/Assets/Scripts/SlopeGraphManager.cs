@@ -6,7 +6,7 @@ public class SlopeGraphManager : MonoBehaviour
 {
     public GameObject circlePrefab;
     public GameObject linePrefab;
-    public void GenerateSlopeGraph(List<Vector2> plotValues)
+    public void GenerateSlopeGraph(List<Vector2> plotValues, bool isDragable = true)
     {
         foreach (Transform child in transform)
         {
@@ -18,6 +18,7 @@ public class SlopeGraphManager : MonoBehaviour
         {
             GameObject circle = Instantiate(circlePrefab, transform);
             circle.transform.GetChild(0).GetComponent<RectTransform>().anchoredPosition = new Vector2(0, plotValues[i].y * 1000);
+            circle.transform.GetChild(0).GetComponent<CircleManager>().isDragable = isDragable;
 
             if (i != 0)
             {
