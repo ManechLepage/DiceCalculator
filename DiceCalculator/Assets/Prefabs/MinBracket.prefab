@@ -127,7 +127,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 381615295801324443, guid: 73b57db5f8b564242b985dae9a10fb19, type: 3}
       propertyPath: maxLength
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 381615295801324443, guid: 73b57db5f8b564242b985dae9a10fb19, type: 3}
       propertyPath: hasOperators
@@ -216,6 +216,14 @@ PrefabInstance:
     - target: {fileID: 2471704815614336877, guid: 73b57db5f8b564242b985dae9a10fb19, type: 3}
       propertyPath: m_Name
       value: MinBracket
+      objectReference: {fileID: 0}
+    - target: {fileID: 5413958893611130761, guid: 73b57db5f8b564242b985dae9a10fb19, type: 3}
+      propertyPath: maxLength
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5413958893611130761, guid: 73b57db5f8b564242b985dae9a10fb19, type: 3}
+      propertyPath: hasOperators
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5413958893611130761, guid: 73b57db5f8b564242b985dae9a10fb19, type: 3}
       propertyPath: operatorPrefab
