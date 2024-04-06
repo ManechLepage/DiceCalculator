@@ -1,3 +1,4 @@
+using System.Linq.Expressions;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,16 +10,11 @@ public class PanelManager : MonoBehaviour
 
     public void Update()
     {
-        WidthManager();
+        UpdatePanel();
     }
 
     public void UpdatePanel()
     {
-        expressions.Clear();
-        foreach (Transform child in transform)
-        {
-            expressions.Add(child.gameObject);
-        }
         AddOperators();
         WidthManager();
     }
@@ -26,32 +22,39 @@ public class PanelManager : MonoBehaviour
     public void AddOperators()
     {
         bool isLastOperator = true;
-        foreach (GameObject expression in expressions)
+        List<int> operatorsToAdd = new List<int>();
+        foreach (Transform child in transform)
         {
+            GameObject expression = child.gameObject;
             if (expression.GetComponent<ExpressionManager>() == null) continue;
-            if (expression.GetComponent<ExpressionManager>().type == ExpressionType.Value || expression.GetComponent<ExpressionManager>().type == ExpressionType.Parentesis)
+
+            if (expression.GetComponent<ExpressionManager>().type != ExpressionType.Operator)
             {
                 if (!isLastOperator)
                 {
-                    GameObject operatorObject = Instantiate(operatorPrefab, transform);
-                    operatorObject.transform.SetSiblingIndex(expressions.IndexOf(expression));
-                    expressions.Insert(expressions.IndexOf(expression), operatorObject);
+                    operatorsToAdd.Add(child.GetSiblingIndex());
+ 
                 }
                 isLastOperator = false;
             }
-            else if (expression.GetComponent<ExpressionManager>().type == ExpressionType.Operator)
+            else
             {
                 isLastOperator = true;
             }
+        }
+        for (int i = 0; i < operatorsToAdd.Count; i++)
+        {
+            GameObject operatorObject = Instantiate(operatorPrefab, transform);
+            operatorObject.transform.SetSiblingIndex(operatorsToAdd[i]);
         }
     }
 
     public void WidthManager()
     {
-        float width = 30;
+        float width = 5;
         foreach (Transform expression in transform)
         {
-            width += expression.GetComponent<RectTransform>().rect.width;
+            width += expression.GetComponent<RectTransform>().rect.width + 10f;
         }
         GetComponent<RectTransform>().sizeDelta = new Vector2(width, GetComponent<RectTransform>().rect.height);
         if (transform.parent.GetComponent<PanelManager>() != null)
