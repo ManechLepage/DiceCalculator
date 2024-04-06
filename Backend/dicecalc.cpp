@@ -1,5 +1,27 @@
 #include "dicecalc.hpp"
 
+double getErr(const Dist& target, const Dist& given) {
+    int tighter_min = std::max(given.range.first, target.range.first);
+    int looser_min = std::min(given.range.first, target.range.first);
+    int tighter_max = std::min(given.range.second, target.range.second);
+    int looser_max = std::max(given.range.second, target.range.second);
+    double signed_err = 0;
+    double err = 0;
+    for (int i = looser_min; i <= looser_max; i++) {
+        if (i < tighter_min) {
+            if (given.range.first == looser_min) signed_err = given.prob[i-given.range.first] / (double)given.total;
+            else signed_err = target.prob[i-target.range.first] / target.total;
+        } else if (i > tighter_max) {
+            if (given.range.second == looser_max) signed_err = given.prob[i-given.range.first] / (double)given.total;
+            else signed_err = target.prob[i-target.range.first] / target.total;
+        } else {
+            signed_err = (given.prob[i-given.range.first] - target.prob[i-target.range.first]) / (double)(given.total + target.total);
+        }
+        err += signed_err * signed_err;
+    }
+    return err;
+}
+
 std::string OpTree::repr() {
     std::string result = "";
     switch (this->op) {
@@ -63,45 +85,38 @@ int OpTree::simul() {
         case DISADVANTAGE:
             return std::min(this->left->simul(), this->right->simul());
     }
+    return 0;
 }
 
 Range OpTree::getRange() {
     switch (this->op) {
         case SCALAR:
             return std::make_pair(this->val, this->val);
-            break;
         case DIE:
             return std::make_pair(1, this->val);
-            break;
         case ROLL:
             return std::make_pair(this->left->getRange().first * this->right->getRange().first, this->left->getRange().second * this->right->getRange().second);
-            break;
         case PLUS:
             return std::make_pair(this->left->getRange().first + this->right->getRange().first, this->left->getRange().second + this->right->getRange().second);
-            break;
         case MINUS:
             return std::make_pair(this->left->getRange().first - this->right->getRange().second, this->left->getRange().second - this->right->getRange().first);
-            break;
         case MULTIPLY:
             return std::make_pair(this->left->getRange().first * this->right->getRange().first, this->left->getRange().second * this->right->getRange().second);
-            break;
         case DIVIDE:
             return std::make_pair(floor(this->left->getRange().first / this->right->getRange().second), ceil(this->left->getRange().second / this->right->getRange().first));
-            break;
         case ADVANTAGE:
             return std::make_pair(std::max(this->left->getRange().first, this->right->getRange().first), std::max(this->left->getRange().second, this->right->getRange().second));
-            break;
         case DISADVANTAGE:
             return std::make_pair(std::min(this->left->getRange().first, this->right->getRange().first), std::min(this->left->getRange().second, this->right->getRange().second));
-            break;
     }
+    return std::make_pair(0, 0);
 }
 
 Dist OpTree::getDist(int num_sims) {
     Dist dist;
     dist.range = this->getRange();
-    std::cout << dist.range.first << " " << dist.range.second << std::endl;
     dist.prob.resize(dist.getSize());
+    dist.total = num_sims;
     std::fill(dist.prob.begin(), dist.prob.end(), 0);
     for (int i = 0; i < num_sims; i++) {
         dist.prob[this->simul()-dist.range.first]++;
@@ -114,13 +129,13 @@ OpTree* constructOpTree(std::string command) {
     std::string cword = "";
     std::vector<Op> op_stack;
     std::vector<OpTree*> tree_stack;
-    for (int i = 0; i < command.size(); i++) {
+    for (unsigned int i = 0; i < command.size(); i++) {
         char c = command[i];
         if (c == ' ' || c == '[' || c == ']' || i == command.size() - 1) {
             word = cword;
             cword = "";
             if (word == "") {
-                continue;
+                ;
             } else if (word == "adv") {
                 op_stack.push_back(ADVANTAGE);
             } else if (word == "dis") {
@@ -141,14 +156,14 @@ OpTree* constructOpTree(std::string command) {
                     try {
                         int val = std::stoi(word);
                         tree_stack.push_back(new OpTree(val, DIE));
-                    } catch (std::invalid_argument) {
+                    } catch (std::invalid_argument const&) {
                         throw std::invalid_argument("Invalid command: " + word);
                     }
                 } else {
                     try {
                         int val = std::stoi(word);
                         tree_stack.push_back(new OpTree(val, SCALAR));
-                    } catch (std::invalid_argument) {
+                    } catch (std::invalid_argument const&) {
                         throw std::invalid_argument("Invalid command: " + word);
                     }
                 }

@@ -8,21 +8,23 @@ class IOManager {
 public:
     IOManager(std::string command_name, std::string result_name) {
         this->command_file.open(command_name, std::ios::out);
-        this->result_file.open(result_name, std::ios::in);
-        id = -1;
+        this->result_name = result_name;
+        rid = -1;
+        wid = -1;
         
     }
 
     ~IOManager() {
         this->command_file.close();
-        this->result_file.close();
     }
 
     std::string blockUntilUpdate();
     void writeResult(std::string command);
 
 private:
-    int id;
+    int rid;
+    int wid;
     std::ifstream command_file;
+    std::string result_name;
     std::ofstream result_file;
 };

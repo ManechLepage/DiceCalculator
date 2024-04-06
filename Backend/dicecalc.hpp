@@ -25,11 +25,14 @@ typedef std::pair<int, int> Range;
 
 struct Dist {
     Range range;
+    int total;
     int getSize() {
         return range.second - range.first + 1;
     }
-    std::vector<double> prob;
+    std::vector<long int> prob;
 };
+
+double getErr(const Dist& target, const Dist& given);
 
 
 class OpTree {
