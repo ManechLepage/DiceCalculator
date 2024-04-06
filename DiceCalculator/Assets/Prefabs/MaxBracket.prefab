@@ -239,6 +239,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: MaxBracket
       objectReference: {fileID: 0}
+    - target: {fileID: 2483103460861209424, guid: 73b57db5f8b564242b985dae9a10fb19, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -3.4800034
+      objectReference: {fileID: 0}
+    - target: {fileID: 2483103460861209424, guid: 73b57db5f8b564242b985dae9a10fb19, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -2.9900017
+      objectReference: {fileID: 0}
     - target: {fileID: 5413958893611130761, guid: 73b57db5f8b564242b985dae9a10fb19, type: 3}
       propertyPath: maxLength
       value: 2
