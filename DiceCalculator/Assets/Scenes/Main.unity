@@ -1433,8 +1433,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 53.5, y: 120.7}
-  m_SizeDelta: {x: 160.5294, y: 54.8735}
+  m_AnchoredPosition: {x: 53.5, y: 103.300766}
+  m_SizeDelta: {x: 160.5294, y: 89.672}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &729980355
 MonoBehaviour:
@@ -1476,8 +1476,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textBoxPrefab: {fileID: 8811582483120172991, guid: 389013b62cc3d0d488460291ac6e8e7f, type: 3}
   bracketBoxPrefab: {fileID: 2471704815614336877, guid: 73b57db5f8b564242b985dae9a10fb19, type: 3}
-  bracketBoxMaxPrefab: {fileID: 0}
-  bracketBoxMinPrefab: {fileID: 0}
+  bracketBoxMaxPrefab: {fileID: 7590667163909724417, guid: e4057882813329e4ab5d2bed6bb2a689, type: 3}
+  bracketBoxMinPrefab: {fileID: 7590667163909724417, guid: ab9267a0be0d21a4eb4bb46471c367f1, type: 3}
 --- !u!114 &767946852
 MonoBehaviour:
   m_ObjectHideFlags: 0
