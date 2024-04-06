@@ -5,7 +5,7 @@ CFLAGS=-I. -Wall -Wextra -std=c++11 -g -O0
 all: program
 
 program: main.o dicecalc.o random.o io.o search.o
-	$(CC) $(LDFLAGS) main.o dicecalc.o random.o io.o search.o -o program
+	$(CC) $(LDFLAGS) main.o dicecalc.o random.o io.o search.o -o dicecalc.exe
 
 main.o: main.cpp dicecalc.cpp io.cpp
 	$(CC) $(CFLAGS) -c main.cpp
