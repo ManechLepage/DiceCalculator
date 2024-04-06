@@ -7,6 +7,11 @@ public class PanelManager : MonoBehaviour
     public List<GameObject> expressions = new List<GameObject>(); 
     public GameObject operatorPrefab; 
 
+    public void Update()
+    {
+        WidthManager();
+    }
+
     public void UpdatePanel()
     {
         expressions.Clear();
@@ -15,6 +20,7 @@ public class PanelManager : MonoBehaviour
             expressions.Add(child.gameObject);
         }
         AddOperators();
+        WidthManager();
     }
 
     public void AddOperators()
@@ -37,6 +43,20 @@ public class PanelManager : MonoBehaviour
             {
                 isLastOperator = true;
             }
+        }
+    }
+
+    public void WidthManager()
+    {
+        float width = 30;
+        foreach (Transform expression in transform)
+        {
+            width += expression.GetComponent<RectTransform>().rect.width;
+        }
+        GetComponent<RectTransform>().sizeDelta = new Vector2(width, GetComponent<RectTransform>().rect.height);
+        if (transform.parent.GetComponent<PanelManager>() != null)
+        {
+            transform.parent.GetComponent<PanelManager>().UpdatePanel();
         }
     }
 }
