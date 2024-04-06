@@ -8,6 +8,7 @@ using System.Globalization;
 public class ExpressionParser : MonoBehaviour
 {
     public List<ExpressionManager> expressions = new List<ExpressionManager>();
+    public GameObject baseBracket;
     private int id = 0;
 
     void TestInitialize()
@@ -67,10 +68,10 @@ public class ExpressionParser : MonoBehaviour
     {
         Debug.Log("Expression Parser");
         TestInitialize();
-        string text = Parse(expressions);
-        Debug.Log(text);
+        //string text = Parse();
+        //Debug.Log(text);
 
-        LoadDiceRollerResults(text);
+        //LoadDiceRollerResults(text);
     }
 
     string ValueToString(ExpressionManager expr)
@@ -99,7 +100,17 @@ public class ExpressionParser : MonoBehaviour
         }
     }
 
-    string Parse(List<ExpressionManager> exprs)
+    public void Parse()
+    {
+        List<ExpressionManager> exprs = new List<ExpressionManager>();
+        exprs.Add(baseBracket.GetComponent<ExpressionManager>());
+        
+        string text = ParseExpressions(exprs);
+        Debug.Log(text);
+        //return text;
+    }
+
+    string ParseExpressions(List<ExpressionManager> exprs)
     {
         string text = "";
         
@@ -141,7 +152,8 @@ public class ExpressionParser : MonoBehaviour
             if (expr.type == ExpressionType.Value)
                 text += ValueToString(expr);
             
-            else if (expr.type == ExpressionType.Operator)
+            else if (expr.type == ExpressionType.Operator || expr.type == ExpressionType.MinBracket
+                    || expr.type == ExpressionType.MaxBracket)
             {
                 text += "[" + expr.value;
                 foreach (ExpressionManager subExpr in expr.expressions)
@@ -149,13 +161,13 @@ public class ExpressionParser : MonoBehaviour
                     List<ExpressionManager> subExprs = new List<ExpressionManager>();
                     subExprs.Add(subExpr);
                     
-                    text += " " + Parse(subExprs);
+                    text += " " + ParseExpressions(subExprs);
                 }
                 text += "]";
             }
 
             else if (expr.type == ExpressionType.Parentesis)
-                text += Parse(expr.expressions);
+                text += ParseExpressions(expr.expressions);
         }
 
         return text;

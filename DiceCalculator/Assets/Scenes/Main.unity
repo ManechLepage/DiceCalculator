@@ -1752,6 +1752,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   expressions: []
+  baseBracket: {fileID: 1595305043}
 --- !u!4 &353501450
 Transform:
   m_ObjectHideFlags: 0
@@ -6048,6 +6049,18 @@ MonoBehaviour:
       - m_Target: {fileID: 2037818925}
         m_TargetAssemblyTypeName: FormatUpdater, Assembly-CSharp
         m_MethodName: UpdateFormat
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 353501449}
+        m_TargetAssemblyTypeName: ExpressionParser, Assembly-CSharp
+        m_MethodName: Parse
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
