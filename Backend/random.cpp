@@ -20,3 +20,7 @@ void pcg32_fast_init(uint64_t seed) {
 unsigned short random(const unsigned short max) {
 	return pcg32_fast() % max;
 }
+
+double randomDouble() {
+    return (double)pcg32_fast() / UINT32_MAX;
+}
