@@ -16,9 +16,12 @@ public class FormatUpdater : MonoBehaviour
         List<GameObject> children = new List<GameObject>();
         ExpressionManager expression = expressionObject.GetComponent<ExpressionManager>();
 
-        foreach (Transform child in gameObject.GetComponentsInChildren<Transform>())
+        foreach (Transform child in expressionObject.transform)
         {
-            children.Add(child.gameObject);
+            GameObject childObject = child.gameObject;
+            
+            if (childObject.GetComponent<ExpressionManager>() != null)
+                children.Add(childObject);
         }
 
         expression.expressions = new List<ExpressionManager>();
@@ -27,24 +30,40 @@ public class FormatUpdater : MonoBehaviour
         int i = 0;
         foreach (GameObject child in children)
         {
-            ExpressionManager expr = child.GetComponent<ExpressionManager>();
-
-            Debug.Log($"{child.name}");
-
-            if (expr != null)
+            if (child != expressionObject)
             {
-                if (expr.type == ExpressionType.Operator)
-                {
-                    expr.expressions = new List<ExpressionManager>();
-                    expr.expressions.Add(children[i - 1].GetComponent<ExpressionManager>());
-                    expr.expressions.Add(children[i + 1].GetComponent<ExpressionManager>());
-                    hasOperators = true;
+                ExpressionManager expr = child.GetComponent<ExpressionManager>();
 
-                    expression.expressions.Add(expr);
-                }
-                else if (expr.type == ExpressionType.Parentesis)
+                if (expr != null)
                 {
-                    UpdateExpression(child);
+                    if (expr.type == ExpressionType.Operator || expr.type == ExpressionType.MinBracket || expr.type == ExpressionType.MaxBracket)
+                    {
+                        expr.expressions = new List<ExpressionManager>();
+
+                        ExpressionManager e1;
+                        ExpressionManager e2;
+                        if (expr.type == ExpressionType.Operator)
+                        {
+                            e1 = children[i - 1].GetComponent<ExpressionManager>();
+                            e2 = children[i + 1].GetComponent<ExpressionManager>();
+                        }
+                        else
+                        {
+                            e1 = children[i + 1].GetComponent<ExpressionManager>();
+                            e2 = children[i + 2].GetComponent<ExpressionManager>();
+                        }
+
+                        expr.expressions.Add(e1);
+                        expr.expressions.Add(e2);
+
+                        hasOperators = true;
+
+                        expression.expressions.Add(expr);
+                    }
+                    else if (expr.type == ExpressionType.Parentesis)
+                    {
+                        UpdateExpression(child);
+                    }
                 }
             }
             i += 1;
