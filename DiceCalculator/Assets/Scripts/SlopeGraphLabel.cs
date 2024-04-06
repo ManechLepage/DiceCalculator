@@ -15,10 +15,10 @@ public class SlopeGraphLabel : MonoBehaviour
         {
             Destroy(child);
         }
-        for (int i = 0; i < plotValues.Count; i++)
+        foreach (Vector2 value in plotValues)
         {
             GameObject text = Instantiate(labelPrefab, transform);
-            text.GetComponent<TextMeshProUGUI>().text =  i.ToString();
+            text.GetComponent<TextMeshProUGUI>().text =  value.x.ToString();
         }
     }
 }

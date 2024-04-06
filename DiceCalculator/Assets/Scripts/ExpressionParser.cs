@@ -254,59 +254,64 @@ public class ExpressionParser : MonoBehaviour
         
         while (true)
         {
-            string readText = File.ReadAllText(fullPath);
-
-            if (readText != "")
+            try
             {
-                List<Vector2> results = new List<Vector2>();
+                string readText = File.ReadAllText(fullPath);
 
-                string[] lines = readText.Split('\n');
-                int detected_id = -1;
-
-                int i = 0;
-                foreach (string line in lines)
+                if (readText != "")
                 {
-                    if (i == 0)
-                        detected_id = int.Parse(line);
-                    
-                    else
+                    List<Vector2> results = new List<Vector2>();
+
+                    string[] lines = readText.Split('\n');
+                    int detected_id = -1;
+
+                    int i = 0;
+                    foreach (string line in lines)
                     {
-                        string[] values = line.Split(' ');
-                        if (values.Length == 2)
+                        if (i == 0)
+                            detected_id = int.Parse(line);
+                        
+                        else
                         {
-                            float x = (float)int.Parse(values[0]);
-                            float y = (float)int.Parse(values[1]);
-                            
-                            Vector2 data = new Vector2(x, y);
-                            results.Add(data);
+                            string[] values = line.Split(' ');
+                            if (values.Length == 2)
+                            {
+                                float x = (float)int.Parse(values[0]);
+                                float y = (float)int.Parse(values[1]);
+                                
+                                Vector2 data = new Vector2(x, y);
+                                results.Add(data);
+                            }
                         }
+                        i += 1;
                     }
-                    i += 1;
-                }
 
-                float total = 0f;
-                foreach (Vector2 data in results)
-                    total += data.y;
+                    float total = 0f;
+                    foreach (Vector2 data in results)
+                        total += data.y;
 
-                List<Vector2> tmp_results = new List<Vector2>();
-                foreach (Vector2 data in results)
-                {
-                    tmp_results.Add(new Vector2(data.x, data.y / total));
-                }
+                    List<Vector2> tmp_results = new List<Vector2>();
+                    foreach (Vector2 data in results)
+                    {
+                        tmp_results.Add(new Vector2(data.x, data.y / total));
+                    }
 
-                results = tmp_results;
+                    results = tmp_results;
 
-                if (detected_id != -1 && detected_id != id)
-                {
-                    id = detected_id;
-                    
-                    Debug.Log("Results");
-                    Debug.Log(results);
-                    Debug.Log(readText);
+                    if (detected_id != -1 && detected_id != id)
+                    {
+                        id = detected_id;
+                        
+                        Debug.Log("Results");
+                        Debug.Log(results);
+                        Debug.Log(readText);
 
-                    return results;
+                        return results;
+                    }
                 }
             }
+            catch
+            {}
         }
     }
 }

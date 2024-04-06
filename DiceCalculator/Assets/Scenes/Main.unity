@@ -1646,7 +1646,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1291362500249582419, guid: 73b57db5f8b564242b985dae9a10fb19, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 29.499985
+      value: 92
       objectReference: {fileID: 0}
     - target: {fileID: 1291362500249582419, guid: 73b57db5f8b564242b985dae9a10fb19, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1792,7 +1792,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   expressions: []
-  formatUpdater: {fileID: 0}
+  formatUpdater: {fileID: 2037818925}
   graphPanel: {fileID: 834641036}
   baseBracket: {fileID: 1595305043}
   id: 0
