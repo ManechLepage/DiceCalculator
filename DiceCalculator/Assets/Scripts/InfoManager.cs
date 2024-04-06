@@ -8,6 +8,7 @@ public class InfoManager : MonoBehaviour
     public int chartDataType;
     public GameObject barGraph;
     public GameObject slopeGraph;
+    public GameObject slopeLabels;
     public List<Vector2> plotValues = new List<Vector2>();
     public List<Vector2> tmpPlotValues = new List<Vector2>();
     public void Awake()
@@ -23,11 +24,13 @@ public class InfoManager : MonoBehaviour
         {
             barGraph.SetActive(true);
             slopeGraph.SetActive(false);
+            slopeLabels.SetActive(false);
         }
         else if (chartType == 1)
         {
             barGraph.SetActive(false);
             slopeGraph.SetActive(true);
+            slopeLabels.SetActive(true);
         }
         CreateGraph();
     }
@@ -82,6 +85,7 @@ public class InfoManager : MonoBehaviour
         else if (chartType == 1)
         {
             slopeGraph.GetComponent<SlopeGraphManager>().GenerateSlopeGraph(plotValues, false);
+            slopeLabels.GetComponent<SlopeGraphLabel>().UpdateLabels(plotValues);
         }
     }
 
