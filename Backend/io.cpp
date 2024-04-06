@@ -25,7 +25,7 @@ void IOManager::writeResult(std::string command) {
     Dist dist = tree->getDist(SIMS);
     this->result_file << wid << std::endl;
     for (unsigned int i = 0; i < dist.prob.size(); i++) {
-        this->result_file << i + dist.range.first << " " << 100 * (double)dist.prob[i]/dist.total << std::endl;
+        this->result_file << i + dist.range.first << " " << dist.prob[i] << std::endl;
     }
     this->result_file.close();
     delete tree;
