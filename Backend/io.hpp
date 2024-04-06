@@ -7,7 +7,7 @@ constexpr int SIMS = 100000;
 class IOManager {
 public:
     IOManager(std::string command_name, std::string result_name) {
-        this->command_file.open(command_name, std::ios::out);
+        this->command_file.open(command_name, std::ios::in);
         this->result_name = result_name;
         rid = -1;
         wid = -1;

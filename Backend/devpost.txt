@@ -1,0 +1,74 @@
+## Inspiration
+Our initial spark of inspiration for **Dice or Die** was one of our passions: Dungeons & Dragons and other boardgames.
+As avid players, we became quite interested in the nitty-gritty of dice probability distributions, from uniform
+distributions to Bell curves and more. We wanted a tool that would aid us in both our role as players and game designers.
+We were also inspired by Scratch, the Unity Shader Graph language and other block-based applications, as we realised 
+that their UI made them significantly more accessible to non-coders.
+
+## What it does
+At its core, **Dice or Die** is a dice probability calculator. This means that it takes as input a description of 
+a group of dice to be rolled and outputs a graph of the probability that each number will be rolled. For example,
+if the user enters, through the block-based interface 
+```
+1d4 + 2d6
+```
+that is, one 4-sided die added to 2 six sided-dice, it will output a graph that says, amongst other things, 
+that the probability of rolling a 9 is 14%. **Dice or Die** supports dice with an arbitrary number of faces, addition
+subtraction, multiplication, advantage (maximum of 2 dice) and disadvantage (minimum).
+
+**Dice or Die** wraps this core in a hybrid textual and blocked-based interface. Basic objects, such as ```2d6``` 
+and ```3``` are entered by the user textually and automatically placed into a block. These blocks can then be combined
+with and nested into other blocks through operators. This makes the creation of the dice expression much more user-friendly
+than it would be if it were purely textual and based on an obtuse and arcane syntax.
+
+## How we built it
+Under the hood, **Dice or Die** is actually seperated into a Unity frontend and a C++ backend. We chose Unity for the
+frontend because of its powerful tools for UI design and C++ because of its performance and suitability for intense numerical
+tasks. The two components communicate through two shared files.
+
+In the frontend, once the user clicks the __Calculate__ button, the hierarchy of Game Objects representing the 
+dice expression they created is serialised by a submodule of the frontend into a string representation. This string
+encodes all the operations as well as the arborescent structure of the expression. The string is then written 
+to the command file along with a unique id identifying the command.
+
+The backend watches for changes in the command file, and when it sees the command it deserialises the string into a tree.
+Each node of the tree represents an operation, its children the operands. The leaves are numbers and basic dice.
+To calculate the probabilities, a Monte-Carlo simulation is employed. The tree is traversed recursively, calculating
+the value of each node from the bottom-up. For each die, a random number is generated according to its number of faces.
+These values trickle up the tree through the various operations until a final value is generated. The default random
+number generator in C++, which is a Mersenne Twister, is both too slow and insufficiently random for this purpose.
+This is why we deciced to use a permutational congruential generator (PCG, [link]https://www.pcg-random.org/index.html)
+instead. This recursive operation is repeated 100,000 times and the number of times each number is found is recorded. 
+This is converted to a probability distribution and written to a response file along with a unique id.
+
+The frontend, which was watching for changes in the response file, sees the distribution and converts it to a graph which
+is displayed for users to see. All calculations on the graph, such as converting to __At Least__ and __At Most__ mode,
+are done in the frontend.
+
+## Challenges we ran into
+The design of the block-based interface was much more complex and challenging then anticipated. Getting the operators
+to appear in the right order and nest within each other properly took quite a bit of work, especially since some operators
+are infix and others prefix.
+
+## Accomplishments that we're proud of
+We're very proud of the performance of the final result. The efficient random number generator and the minimal tree
+structure allow us to perform a million simulations of a complex expression in half a second, and much less than that
+is required to obtain sufficiently price results. Since we were worried about undue lag for the user, we are very proud
+of the performance that we were able to obtain. 
+
+## What we learned
+This was the first project that any of us had worked on in a larger group. Although we have all used version control
+and collaborated on projects before, this experience taught us several skills like how to brainstorm projects together,
+coordonate on parts of the project that will eventually be integrated (such as the communication between the frontend
+and backend), and how to deal with merge conflicts, the bane of our existences.
+
+## What's next for Dice or Die
+Our primary goal for the future is to add functionality to **Dice or Die** that will essentially allow it
+to do the reverse of what it currently. In essence, the user would be able to graphically specify a desired probability
+distribution by dragging the points and the backend would attempt to find the set of dice that best match the desired
+distribution. This would be found by a simulated annealing algorithm ([link]https://enac.hal.science/hal-01887543/document)
+minimising a sum-of-squares cost function of the difference between the target and current probabilities for each number.
+This functionality would be a great boon to game designers since they can then design their die system bottom-up
+from the probability distribution generating the desired gameplay rather than the dice.
+
+We would also like to continue adding operators, like exploding die and conditionals. 

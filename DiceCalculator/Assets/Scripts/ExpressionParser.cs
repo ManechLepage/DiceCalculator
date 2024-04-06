@@ -187,6 +187,8 @@ public class ExpressionParser : MonoBehaviour
         path = path.Substring(0, index);
         index = path.LastIndexOf("\\");
         path = path.Substring(0, index + 1);
+
+        path += "Backend\\";
         
         path = path + fileName;
         return path;
@@ -215,7 +217,6 @@ public class ExpressionParser : MonoBehaviour
         
         if (text.Contains("."))
         {
-            Debug.Log($"Text : {text}, Index : {text.IndexOf('.')}, Length : {text.Length}");
             numbers = text.Length - (text.IndexOf('.') + 2);
         }
         else
@@ -226,12 +227,19 @@ public class ExpressionParser : MonoBehaviour
         float value = float.Parse(text);
         value /= Mathf.Pow(10, numbers);
 
+        Debug.Log($"Text: {text}, Numbers: {numbers}, Value: {value}");
+
         return value;
     }
 
     public void LoadResults()
     {
         graphPanel.plotValues = LoadDiceRollerResults();
+        string t = "Expressions :";
+        foreach (Vector2 v in graphPanel.plotValues)
+            t += $"\n\t{v.x}, {v.y}";
+        Debug.Log(t);
+        graphPanel.UpdateValues();
     }
     
     List<Vector2> LoadDiceRollerResults()
@@ -260,12 +268,27 @@ public class ExpressionParser : MonoBehaviour
                         string[] values = line.Split(' ');
                         if (values.Length == 2)
                         {
-                            float x = TextToFloat(values[0]);
-                            float y = TextToFloat(values[1]);
+                            float x = (float)int.Parse(values[0]);
+                            float y = (float)int.Parse(values[1]);
+                            
+                            Vector2 data = new Vector2(x, y);
+                            results.Add(data);
                         }
                     }
                     i += 1;
                 }
+
+                float total = 0f;
+                foreach (Vector2 data in results)
+                    total += data.y;
+
+                List<Vector2> tmp_results = new List<Vector2>();
+                foreach (Vector2 data in results)
+                {
+                    tmp_results.Add(new Vector2(data.x, data.y / total));
+                }
+
+                results = tmp_results;
 
                 if (detected_id != -1 && detected_id != id)
                 {
