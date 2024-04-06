@@ -1594,23 +1594,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1291362500249582419, guid: 73b57db5f8b564242b985dae9a10fb19, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 805
+      value: 1610
       objectReference: {fileID: 0}
     - target: {fileID: 1291362500249582419, guid: 73b57db5f8b564242b985dae9a10fb19, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 59
+      value: 118
       objectReference: {fileID: 0}
     - target: {fileID: 1291362500249582419, guid: 73b57db5f8b564242b985dae9a10fb19, type: 3}
       propertyPath: m_LocalScale.x
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1291362500249582419, guid: 73b57db5f8b564242b985dae9a10fb19, type: 3}
       propertyPath: m_LocalScale.y
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1291362500249582419, guid: 73b57db5f8b564242b985dae9a10fb19, type: 3}
       propertyPath: m_LocalScale.z
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1291362500249582419, guid: 73b57db5f8b564242b985dae9a10fb19, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1743,6 +1743,18 @@ PrefabInstance:
     - target: {fileID: 6929449321672509493, guid: 73b57db5f8b564242b985dae9a10fb19, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8895046559130705849, guid: 73b57db5f8b564242b985dae9a10fb19, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8895046559130705849, guid: 73b57db5f8b564242b985dae9a10fb19, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8895046559130705849, guid: 73b57db5f8b564242b985dae9a10fb19, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -2623,7 +2635,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.06507654, g: 0.06584304, b: 0.0754717, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -4378,7 +4390,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.084905684, g: 0.084905684, b: 0.084905684, a: 0.392}
+  m_Color: {r: 0.22172531, g: 0.2202919, b: 0.26415092, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
