@@ -8,12 +8,21 @@ public class InfoManager : MonoBehaviour
     public int chartDataType;
     public GameObject barGraph;
     public GameObject slopeGraph;
-    public GameObject slopeLabels;
+    public GameObject labels;
     public List<Vector2> plotValues = new List<Vector2>();
     public List<Vector2> tmpPlotValues = new List<Vector2>();
-    public void Awake()
+    void Awake()
     {
-        tmpPlotValues = plotValues;
+        UpdateValues();
+    }
+    
+    public void UpdateValues()
+    {
+        tmpPlotValues = new List<Vector2>();
+        foreach (Vector2 value in plotValues)
+        {
+            tmpPlotValues.Add(value);
+        }
     }
 
     public void ChangeChartType(int type)
@@ -24,13 +33,11 @@ public class InfoManager : MonoBehaviour
         {
             barGraph.SetActive(true);
             slopeGraph.SetActive(false);
-            slopeLabels.SetActive(false);
         }
         else if (chartType == 1)
         {
             barGraph.SetActive(false);
             slopeGraph.SetActive(true);
-            slopeLabels.SetActive(true);
         }
         CreateGraph();
     }
@@ -67,17 +74,19 @@ public class InfoManager : MonoBehaviour
 
     public void TransformPlotValuesToAtMost()
     {
-        float sum = 1;
+        float sum = 0;
         for (int i = plotValues.Count; i < 0; i--)
         {
-            plotValues[i] = new Vector2(plotValues[i].x, sum);
+            float tmpSum = sum;
             sum += tmpPlotValues[i].y;
+            plotValues[i] = new Vector2(plotValues[i].x, sum);
         }
     }
 
 
     public void CreateGraph() 
     {
+        labels.GetComponent<SlopeGraphLabel>().UpdateLabels(plotValues);
         if (chartType == 0)
         {
             barGraph.GetComponent<GraphManager>().GenerateBarGraph(plotValues);
@@ -85,7 +94,7 @@ public class InfoManager : MonoBehaviour
         else if (chartType == 1)
         {
             slopeGraph.GetComponent<SlopeGraphManager>().GenerateSlopeGraph(plotValues, false);
-            slopeLabels.GetComponent<SlopeGraphLabel>().UpdateLabels(plotValues);
+            
         }
     }
 
