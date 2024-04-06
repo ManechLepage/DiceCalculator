@@ -8,6 +8,7 @@ using System.Globalization;
 public class ExpressionParser : MonoBehaviour
 {
     public List<ExpressionManager> expressions = new List<ExpressionManager>();
+    public InfoManager graphPanel;
     public GameObject baseBracket;
     private int id = 0;
 
@@ -67,11 +68,11 @@ public class ExpressionParser : MonoBehaviour
     void Start()
     {
         Debug.Log("Expression Parser");
-        TestInitialize();
+        //TestInitialize();
         //string text = Parse();
         //Debug.Log(text);
 
-        //LoadDiceRollerResults(text);
+        LoadResults();
     }
 
     string ValueToString(ExpressionManager expr)
@@ -228,7 +229,12 @@ public class ExpressionParser : MonoBehaviour
         return value;
     }
 
-    List<Vector2> LoadDiceRollerResults(string text)
+    public void LoadResults()
+    {
+        graphPanel.plotValues = LoadDiceRollerResults();
+    }
+    
+    List<Vector2> LoadDiceRollerResults()
     {
         string fullPath = GetPath("results.txt");
         
