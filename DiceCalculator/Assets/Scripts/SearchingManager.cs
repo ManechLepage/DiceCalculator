@@ -24,6 +24,7 @@ public class SearchingManager : MonoBehaviour
         GameObject textBox = Instantiate(textBoxPrefab, transform);
         textBox.transform.SetParent(panel.transform);
         textBox.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = text.GetComponent<TextMeshProUGUI>().text;
+        textBox.GetComponent<ExpressionManager>().value = text.GetComponent<TextMeshProUGUI>().text;
         RearangeAddBox();
         UpdatePanel();
     }

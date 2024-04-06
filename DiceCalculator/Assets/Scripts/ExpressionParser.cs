@@ -229,13 +229,13 @@ public class ExpressionParser : MonoBehaviour
                 List<Vector2> results = new List<Vector2>();
 
                 string[] lines = readText.Split('\n');
-                int detected_id;
+                int detected_id = -1;
 
                 int i = 0;
                 foreach (string line in lines)
                 {
                     if (i == 0)
-                        detected_id = int.Parse(line) + 1;
+                        detected_id = int.Parse(line);
                     
                     else
                     {
@@ -244,14 +244,12 @@ public class ExpressionParser : MonoBehaviour
                         {
                             float x = TextToFloat(values[0]);
                             float y = TextToFloat(values[1]);
-
-                            Debug.Log($"Values : {x}, {y}");
                         }
                     }
                     i += 1;
                 }
 
-                if (detected_id != id)
+                if (detected_id != -1 && detected_id != id)
                 {
                     id = detected_id;
                     
