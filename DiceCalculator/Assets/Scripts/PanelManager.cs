@@ -22,6 +22,7 @@ public class PanelManager : MonoBehaviour
         bool isLastOperator = true;
         foreach (GameObject expression in expressions)
         {
+            if (expression.GetComponent<ExpressionManager>() == null) continue;
             if (expression.GetComponent<ExpressionManager>().type == ExpressionType.Value || expression.GetComponent<ExpressionManager>().type == ExpressionType.Parentesis)
             {
                 if (!isLastOperator)
