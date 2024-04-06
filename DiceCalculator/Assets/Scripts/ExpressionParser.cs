@@ -1,15 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
+using System;
+using System.Globalization;
 
 public class ExpressionParser : MonoBehaviour
 {
     public List<ExpressionManager> expressions = new List<ExpressionManager>();
+    private int id = 0;
 
     void TestInitialize()
     {
         // 1d8 * (2d6 + 3)
-        ExpressionManager expr1 = new ExpressionManager();
+        /* ExpressionManager expr1 = new ExpressionManager();
         expr1.value = "1d8";
         expr1.type = ExpressionType.Value;
 
@@ -38,7 +42,25 @@ public class ExpressionParser : MonoBehaviour
         expr6.expressions.Add(expr1);
         expr6.expressions.Add(expr5);
 
-        expressions.Add(expr6);
+        expressions.Add(expr6); */
+
+        // 1d6 + 2d4
+
+        ExpressionManager expr1 = new ExpressionManager();
+        expr1.value = "1d6";
+        expr1.type = ExpressionType.Value;
+        
+        ExpressionManager expr2 = new ExpressionManager();
+        expr2.value = "2d4";
+        expr2.type = ExpressionType.Value;
+
+        ExpressionManager expr3 = new ExpressionManager();
+        expr3.value = "+";
+        expr3.type = ExpressionType.Operator;
+        expr3.expressions.Add(expr1);
+        expr3.expressions.Add(expr2);
+
+        expressions.Add(expr3);
     }
 
     void Start()
@@ -47,6 +69,8 @@ public class ExpressionParser : MonoBehaviour
         TestInitialize();
         string text = Parse(expressions);
         Debug.Log(text);
+
+        LoadDiceRollerResults(text);
     }
 
     string ValueToString(ExpressionManager expr)
@@ -135,5 +159,96 @@ public class ExpressionParser : MonoBehaviour
         }
 
         return text;
+    }
+
+    string GetPath(string fileName)
+    {
+        string path = Path.GetFullPath(fileName);
+        // current : C:\Users\user\Documents\GitHub\DiceRoller\DiceRoller\fileName.txt
+
+        // remove the last directory with a \
+        // wanted : C:\Users\user\Documents\GitHub\DiceRoller\fileName.txt
+
+        // the code :
+        int index = path.LastIndexOf("\\");
+        path = path.Substring(0, index);
+        index = path.LastIndexOf("\\");
+        path = path.Substring(0, index + 1);
+        
+        path = path + fileName;
+        return path;
+    }
+    
+    void SendToDiceRoller(string text)
+    {
+        string fullPath = GetPath("commands.txt");
+        Debug.Log(fullPath);
+        
+        File.WriteAllText(fullPath,string.Empty);
+
+        using (StreamWriter writer = new StreamWriter(fullPath))
+        {
+            writer.WriteLine(id.ToString());
+            Debug.Log("Command");
+            Debug.Log(id.ToString());
+            writer.WriteLine(text);
+            Debug.Log(text);
+        }
+    }
+
+    float TextToFloat(string text)
+    {
+        int numbers;
+        
+        if (text.Contains("."))
+        {
+            Debug.Log($"Text : {text}, Index : {text.IndexOf('.')}, Length : {text.Length}");
+            numbers = text.Length - (text.IndexOf('.') + 2);
+        }
+        else
+            numbers = 0;
+
+        text = text.Replace(".", "");
+        
+        float value = float.Parse(text);
+        value /= Mathf.Pow(10, numbers);
+
+        return value;
+    }
+
+    List<Vector2> LoadDiceRollerResults(string text)
+    {
+        string fullPath = GetPath("results.txt");
+        
+        string readText = File.ReadAllText(fullPath);
+        List<Vector2> results = new List<Vector2>();
+
+        string[] lines = readText.Split('\n');
+
+        int i = 0;
+        foreach (string line in lines)
+        {
+            if (i == 0)
+                id = int.Parse(line) + 1;
+            
+            else
+            {
+                string[] values = line.Split(' ');
+                if (values.Length == 2)
+                {
+                    float x = TextToFloat(values[0]);
+                    float y = TextToFloat(values[1]);
+
+                    Debug.Log($"Values : {x}, {y}");
+                }
+            }
+            i += 1;
+        }
+
+        Debug.Log("Results");
+        Debug.Log(results);
+        Debug.Log(readText);
+
+        return results;
     }
 }
