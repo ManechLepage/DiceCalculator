@@ -16,7 +16,7 @@ public class ButtonAddingScript : MonoBehaviour
     {
         isSearching = !isSearching;
         searchingObject.SetActive(isSearching);
-        searchingObject.GetComponent<SearchingManager>().EnableSearching(parent);
+        searchingObject.GetComponent<SearchingManager>().EnableSearching(parent, gameObject);
         searchingObject.transform.position = new Vector3(gameObject.transform.position.x + 30f, gameObject.transform.position.y + 90f, gameObject.transform.position.z);
     }
 }
