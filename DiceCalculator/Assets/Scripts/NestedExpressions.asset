@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: NestedExpressions
   m_EditorClassIdentifier: 
   colors:
-  - {r: 1, g: 0, b: 0, a: 1}
-  - {r: 1, g: 0.9648032, b: 0, a: 1}
+  - {r: 0.28403345, g: 0.39196506, b: 0.764151, a: 1}
+  - {r: 0.2942862, g: 0.54510766, b: 0.9339623, a: 1}
   - {r: 0.09392464, g: 1, b: 0, a: 1}
   - {r: 0, g: 0.021812677, b: 1, a: 1}
   - {r: 1, g: 0, b: 0.7597866, a: 1}
